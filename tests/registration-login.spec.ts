@@ -20,7 +20,20 @@ test.describe('Create a new user', () => {
 
     //go to signup page, fill name & email
     await mainnav.clickSignUpLogin();
-    await loginsignup.fillNameandEmailAddress('Oleh', 'mykhayliv88777@gmail.com');
+    await loginsignup.fillNameandEmailAddress(process.env.STATIC_USER_NAME!, process.env.STATIC_USER_EMAIL!);
     await loginsignup.buttonSignUp();
+
+    //Chose and verefi radiobutton & password
+    await loginsignup.buttonRadiCheck();
+    await loginsignup.enterAccountPassword(process.env.STATIC_USER_PASSWORD!);
+
+    //select Date of Birth Month Year
+    await loginsignup.selectBrDay();
+    await loginsignup.selectMonth();
+    await loginsignup.selectYear();
+
+    //select check box Newsletter and Offers
+    await loginsignup.selectCheckBoxeNewsletter();
+    await loginsignup.selectCheckBoxOffers();
   });
 });
