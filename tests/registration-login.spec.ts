@@ -3,6 +3,7 @@ import { HomePage } from '../pages/homePage';
 import { Consent } from '../pages/consent';
 import { MainNavigation } from '../pages/mainNavigationPage';
 import { LoginSignuUp } from '../pages/loginSignUpPage';
+import { faker, Faker } from '@faker-js/faker';
 
 
 test.describe('Create a new user', () => {
@@ -35,5 +36,17 @@ test.describe('Create a new user', () => {
     //select check box Newsletter and Offers
     await loginsignup.selectCheckBoxeNewsletter();
     await loginsignup.selectCheckBoxOffers();
+
+    //fill in Adress information via faker
+    const firstName = faker.person.firstName("male")
+    const lastName = faker.person.lastName('male')
+    const companyName = faker.company.name()
+
+    await loginsignup.fillAddressInfoNameLastNameCompany(firstName, lastName, companyName);
+
+    const address1 = faker.location.street();
+    const address2 = faker.location.street();
+
+    await loginsignup.fillAddressOneAndTwo(address1, address2);
   });
 });

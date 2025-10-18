@@ -1,3 +1,4 @@
+import { af_ZA } from '@faker-js/faker';
 import {expect, Locator, type Page} from '@playwright/test';
 
 export class LoginSignuUp {
@@ -68,5 +69,26 @@ export class LoginSignuUp {
     const checkBoxOffers = this.page.getByRole('checkbox');
     await checkBoxOffers.nth(1).check();
     await expect(checkBoxOffers.nth(1)).toBeChecked();
+   }
+
+   // fill address inforamtion
+   async fillAddressInfoNameLastNameCompany(name: string, lastname: string, company: string ) {
+    const addressName = this.page.getByLabel('First name ');
+    await addressName.fill(name);
+    
+    const addressLastName = this.page.getByLabel('Last name ');
+    await addressLastName.fill(lastname);
+
+    const addrwssCompany = this.page.getByLabel('Company').first();
+    await addrwssCompany.fill(company);
+   }
+
+   // fill Address address info
+   async fillAddressOneAndTwo(address1: string, address2: string) {
+    const filladdress1 = this.page.getByLabel('Address ').first();
+    await filladdress1.fill(address1);
+
+    const filladdress2 = this.page.getByLabel('Address 2');
+    await filladdress2.fill(address2);
    }
 }
