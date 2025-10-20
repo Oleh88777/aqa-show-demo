@@ -91,4 +91,25 @@ export class LoginSignuUp {
     const filladdress2 = this.page.getByLabel('Address 2');
     await filladdress2.fill(address2);
    }
+
+   //fill State, City, Zipcode, Mobile Number
+   async fillStateCityZipCOdeMobileNumber(state: string, city: string, zipcode: string, mobilenumber: string) {
+    const fieldState = this.page.getByRole('textbox', {name: 'State'});
+    await fieldState.fill(state);
+
+    const filedCity = this.page.getByRole('textbox', {name: 'City'});
+    await filedCity.fill(city);
+
+    const filedZipCode = this.page.locator('#zipcode');
+    await filedZipCode.fill(zipcode);
+
+    const fieldMobileNumber = this.page.getByRole('textbox', {name: 'Mobile Number '});
+    await fieldMobileNumber.fill(mobilenumber);
+   }
+
+   async buttonCreateAccount() {
+    const buttonCreateAccount = this.page.getByRole('button', {name: 'Create Account'});
+    await buttonCreateAccount.click();
+   }
+
 }

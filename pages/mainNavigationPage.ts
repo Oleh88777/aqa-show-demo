@@ -1,3 +1,4 @@
+import { BitcoinAddressFamily } from '@faker-js/faker';
 import {expect, Locator, type Page} from '@playwright/test';
 
 export class MainNavigation {
@@ -15,5 +16,14 @@ export class MainNavigation {
       await expect(this.page).toHaveURL('https://automationexercise.com/login');
     }
 
+    async buttonHome () {
+      const buttonHome = this.page.locator('[href="/"]');
+      await buttonHome.nth(1).click(); 
+    }
+      
+    async buttonLogOut () {
+      const buttonLogout = this.page.locator('[href="/logout"]');
+      await buttonLogout.click();
+    }
 
 }

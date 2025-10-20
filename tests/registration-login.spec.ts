@@ -4,6 +4,8 @@ import { Consent } from '../pages/consent';
 import { MainNavigation } from '../pages/mainNavigationPage';
 import { LoginSignuUp } from '../pages/loginSignUpPage';
 import { faker, Faker } from '@faker-js/faker';
+import { log } from 'console';
+import { homedir } from 'os';
 
 
 test.describe('Create a new user', () => {
@@ -48,5 +50,20 @@ test.describe('Create a new user', () => {
     const address2 = faker.location.street();
 
     await loginsignup.fillAddressOneAndTwo(address1, address2);
+
+    //fill State, City, Zipcode, Mobile Number
+    const state = faker.location.state();
+    const city = faker.location.city();
+    const zipCode = faker.location.zipCode();
+    const mobileNUmber = faker.phone.number({ style: 'international' });
+
+    await loginsignup.fillStateCityZipCOdeMobileNumber(state, city, zipCode, mobileNUmber);
+
+    //click button Create Account
+    await loginsignup.buttonCreateAccount();
+
+    // Click button Home, Log out;
+    await mainnav.buttonHome();
+    await mainnav.buttonLogOut();
   });
 });
