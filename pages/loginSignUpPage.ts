@@ -1,5 +1,6 @@
 import { af_ZA } from '@faker-js/faker';
 import {expect, Locator, type Page} from '@playwright/test';
+import { PassThrough } from 'stream';
 
 export class LoginSignuUp {
     readonly page: Page;
@@ -111,5 +112,20 @@ export class LoginSignuUp {
     const buttonCreateAccount = this.page.getByRole('button', {name: 'Create Account'});
     await buttonCreateAccount.click();
    }
+
+   
+
+//    async buttonLoginEmailAndPassword(email: string, password: string) {
+//     const loginEmail = this.page.getByPlaceholder('Email Address');
+//     await loginEmail.fill(email);
+
+//     const loginPassword = this.page.getByPlaceholder('Password')
+//     await loginPassword.fill(password);
+//    }
+
+//    async buttonLogin () {
+//     const buttonLogin = this.page.getByRole('button', {name: 'Login'});
+//     await buttonLogin.click();
+//    }
 
 }

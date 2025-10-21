@@ -66,4 +66,34 @@ test.describe('Create a new user', () => {
     await mainnav.buttonHome();
     await mainnav.buttonLogOut();
   });
+
+  test('Register existing user', async ({ page, request }) =>  {
+    const mainnav = new MainNavigation(page);
+    const loginsignup = new LoginSignuUp(page);
+
+    await mainnav.clickSignUpLogin();
+    await loginsignup.fillNameandEmailAddress(process.env.STATIC_USER_NAME!, process.env.STATIC_USER_EMAIL!);
+    await loginsignup.buttonSignUp();
+
+    const errorExistingUser = page.getByText('Email Address already exist!');
+    await expect(errorExistingUser).toBeVisible();
+    await expect(errorExistingUser).toHaveText('Email Address already exist!');
+
+    // Delete existing user via API
+    const formData = new FormData();
+    formData.append('email', process.env.STATIC_USER_EMAIL!);
+    formData.append('password', process.env.STATIC_USER_PASSWORD!);
+
+    const deletMethod = await request.delete('https://automationexercise.com/api/deleteAccount', {
+       
+        multipart: formData,
+    });
+
+      await expect(deletMethod).toBeOK();
+      
+      const result = await deletMethod.json();
+      console.log(result);
+      expect(result.responseCode).toBe(200);
+  })
+
 });
