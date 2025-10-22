@@ -26,4 +26,9 @@ export class MainNavigation {
       await buttonLogout.click();
     }
 
+    async buttonProducts () {
+        const buttonProductsmain = this.page.locator('[href="/products"]')
+        await buttonProductsmain.click();
+    }
+
 }

@@ -4,8 +4,6 @@ import { Consent } from '../pages/consent';
 import { MainNavigation } from '../pages/mainNavigationPage';
 import { LoginSignuUp } from '../pages/loginSignUpPage';
 import { faker, Faker } from '@faker-js/faker';
-import { log } from 'console';
-import { homedir } from 'os';
 
 
 test.describe('Create a new user', () => {
@@ -94,6 +92,7 @@ test.describe('Create a new user', () => {
       const result = await deletMethod.json();
       console.log(result);
       expect(result.responseCode).toBe(200);
-  })
 
+      await page.close();
+  })
 });
