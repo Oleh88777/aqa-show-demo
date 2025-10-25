@@ -6,7 +6,7 @@ import { LoginSignuUp } from '../pages/loginSignUpPage';
 import { faker, Faker } from '@faker-js/faker';
 import { Products } from '../pages/productPage';
 
-test.describe('Create a new user', () => {
+test.describe('Search and add product to the card', () => {
   test.beforeEach(async ({ page }) => {
   
     const homepage = new HomePage(page);
@@ -17,7 +17,9 @@ test.describe('Create a new user', () => {
     await mainnav.buttonProducts();
   });
 
-  test('Search Product', async ({page}) => {
+
+//Search Product, add to Card
+  test('Search Product, add to Card', async ({page}) => {
     const products = new Products(page);
     await products.serachProduct();
     await expect(products.searchProductLocator).toHaveValue('Jeans');
@@ -36,6 +38,13 @@ test.describe('Create a new user', () => {
     for (let i = 0; i < names; i++) {
       await expect(listofItems.nth(i)).toBeVisible();
     }
-  });
 
+    //Add Product to the card go to Card
+     const buttonAddtoCArt = page.locator('a[data-product-id="35"]').first();
+       await expect(buttonAddtoCArt).toBeVisible();
+       await buttonAddtoCArt.click();
+
+     const buttonViewCart = page.locator('[href="/view_cart"]')
+;     await buttonViewCart.nth(1).click();
+  });
 });

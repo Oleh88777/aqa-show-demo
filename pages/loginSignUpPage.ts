@@ -113,19 +113,20 @@ export class LoginSignuUp {
     await buttonCreateAccount.click();
    }
 
-   
+    //Login existing user
+   async buttonLoginEmailAndPassword(email: string, password: string) {
+    const loginEmail = this.page.getByPlaceholder('Email Address');
+    await expect(loginEmail.nth(0)).toBeVisible();
+    await loginEmail.nth(0).fill(email);
 
-//    async buttonLoginEmailAndPassword(email: string, password: string) {
-//     const loginEmail = this.page.getByPlaceholder('Email Address');
-//     await loginEmail.fill(email);
-
-//     const loginPassword = this.page.getByPlaceholder('Password')
-//     await loginPassword.fill(password);
-//    }
-
-//    async buttonLogin () {
-//     const buttonLogin = this.page.getByRole('button', {name: 'Login'});
-//     await buttonLogin.click();
-//    }
+    const loginPassword = this.page.getByPlaceholder('Password')
+    await loginPassword.fill(password);
+   }
+  
+   //Click button Login
+   async buttonLogin () {
+    const buttonLogin = this.page.getByRole('button', {name: 'Login'});
+    await buttonLogin.click();
+   }
 
 }

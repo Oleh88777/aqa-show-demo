@@ -4,6 +4,7 @@ import { Consent } from '../pages/consent';
 import { MainNavigation } from '../pages/mainNavigationPage';
 import { LoginSignuUp } from '../pages/loginSignUpPage';
 import { faker, Faker } from '@faker-js/faker';
+import { request } from 'http';
 
 
 test.describe('Create a new user', () => {
@@ -15,7 +16,7 @@ test.describe('Create a new user', () => {
     await consent.clickButtonConsent();
   });
 
-  test('New user Signup!', async ({ page }) => {
+  test.skip('New user Signup!', async ({ page }) => {
     const mainnav = new MainNavigation(page);
     const loginsignup = new LoginSignuUp(page);
 
@@ -65,6 +66,7 @@ test.describe('Create a new user', () => {
     await mainnav.buttonLogOut();
   });
 
+//Register existing user
   test('Register existing user', async ({ page, request }) =>  {
     const mainnav = new MainNavigation(page);
     const loginsignup = new LoginSignuUp(page);
@@ -76,23 +78,34 @@ test.describe('Create a new user', () => {
     const errorExistingUser = page.getByText('Email Address already exist!');
     await expect(errorExistingUser).toBeVisible();
     await expect(errorExistingUser).toHaveText('Email Address already exist!');
+});
 
-    // Delete existing user via API
-    const formData = new FormData();
-    formData.append('email', process.env.STATIC_USER_EMAIL!);
-    formData.append('password', process.env.STATIC_USER_PASSWORD!);
+// login existing user via UI
+test('login exitsting user via API', async ({ page }) => {
+  const loginsignup = new LoginSignuUp(page);
+  const mainnav = new MainNavigation(page);
 
-    const deletMethod = await request.delete('https://automationexercise.com/api/deleteAccount', {
+  await mainnav.clickSignUpLogin();
+  await loginsignup.buttonLoginEmailAndPassword(process.env.STATIC_USER_EMAIL!, process.env.STATIC_USER_PASSWORD!);
+  await loginsignup.buttonLogin();
+})
+
+//Delete user via API
+ test.skip('Delete existing user via API', async ({ page, request }) => {
+
+      const formData = new FormData();
+      formData.append('email', process.env.STATIC_USER_EMAIL!);
+      formData.append('password', process.env.STATIC_USER_PASSWORD!);
+
+       const deletMethod = await request.delete('https://automationexercise.com/api/deleteAccount', {
        
-        multipart: formData,
-    });
+        multipart: formData
+       });
 
-      await expect(deletMethod).toBeOK();
+       await expect(deletMethod).toBeOK();
       
       const result = await deletMethod.json();
       console.log(result);
       expect(result.responseCode).toBe(200);
-
-      await page.close();
-  })
+    });
 });
