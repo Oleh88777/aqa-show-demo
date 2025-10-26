@@ -121,6 +121,9 @@ export class LoginSignuUp {
 
     const loginPassword = this.page.getByPlaceholder('Password')
     await loginPassword.fill(password);
+
+    const buttonLogin = this.page.getByRole('button', {name: 'Login'});
+    await buttonLogin.click();
    }
   
    //Click button Login
