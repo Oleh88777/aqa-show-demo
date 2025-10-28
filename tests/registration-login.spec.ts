@@ -13,11 +13,7 @@ test.describe('Create a new user', () => {
     const homepage = new HomePage(page);
     const consent = new Consent(page);
     await homepage.gotoMainPage();
-    await page.waitForLoadState('networkidle');
-    const button = consent.buttonConsent;
-      if (await button.isVisible()) {
-      await button.click();
-    }
+    await consent.clickButtonConsent();
   });
 
   test('New user Signup!', async ({ page }) => {

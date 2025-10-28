@@ -26,9 +26,9 @@ jobs:
 
       - name: Create .env file 🔐
         run: |
-          echo "USER_NAME=Oleh" >> .env
-          echo "USER_EMAIL=mykhayliv88777@gmail.com" >> .env
-          echo "USER_PASSWORD=Europe2025$" >> .env
+          echo "STATIC_USER_NAME=Oleh" >> .env
+          echo "STATIC_USER_EMAIL=mykhayliv88777@gmail.com" >> .env
+          echo "STATIC_USER_PASSWORD=Europe2025$" >> .env
           echo "BASE_URL=https://automationexercise.com" >> .env
           echo "CI=true" >> .env
 
