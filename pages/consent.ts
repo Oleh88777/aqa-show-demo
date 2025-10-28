@@ -10,7 +10,13 @@ export class Consent {
     }
 
     async clickButtonConsent() {
-        await this.buttonConsent.click();
-    }
+        
+      await expect.soft(this.buttonConsent).toBeVisible({ timeout: 10000 });
 
+  // Якщо кнопка зʼявилась, клікаємо
+  if (await this.buttonConsent.isVisible()) {
+    await this.buttonConsent.click();
+  }
+
+}
 }
