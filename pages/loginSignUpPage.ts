@@ -29,9 +29,12 @@ export class LoginSignuUp {
 
     //Chose and verefui radio button
     async buttonRadiCheck() {
-     const radioButtonMr = this.page.getByRole('radio', {name: 'Mr.'})
-     await radioButtonMr.check();
+     const radioButtonMr =  this.page.locator('input#id_gender1');
+     await radioButtonMr.click();
      await expect(radioButtonMr).toBeChecked();
+    //  await radioButtonMr.waitFor({ state: 'visible', timeout: 10000 });
+    //  await radioButtonMr.check();
+    //  await expect(radioButtonMr).toBeChecked();
     }
 
     //Enter a pssword
@@ -122,14 +125,15 @@ export class LoginSignuUp {
     const loginPassword = this.page.getByPlaceholder('Password')
     await loginPassword.fill(password);
 
-    const buttonLogin = this.page.getByRole('button', {name: 'Login'});
-    await buttonLogin.click();
+    // const buttonLogin = this.page.getByRole('button', {name: 'Login'});
+    // await buttonLogin.click();
    }
   
    //Click button Login
    async buttonLogin () {
     const buttonLogin = this.page.getByRole('button', {name: 'Login'});
-    await buttonLogin.click();
+     await buttonLogin.waitFor({ state: 'visible', timeout: 10000 });
+     await buttonLogin.click({ force: true });
    }
 
 }

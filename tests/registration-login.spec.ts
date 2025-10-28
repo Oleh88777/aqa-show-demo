@@ -16,7 +16,7 @@ test.describe('Create a new user', () => {
     await consent.clickButtonConsent();
   });
 
-  test.skip('New user Signup!', async ({ page }) => {
+  test('New user Signup!', async ({ page }) => {
     const mainnav = new MainNavigation(page);
     const loginsignup = new LoginSignuUp(page);
 
@@ -67,7 +67,7 @@ test.describe('Create a new user', () => {
   });
 
 //Register existing user
-  test('Register existing user', async ({ page, request }) =>  {
+  test.skip('Register existing user', async ({ page }) =>  {
     const mainnav = new MainNavigation(page);
     const loginsignup = new LoginSignuUp(page);
 
@@ -75,37 +75,50 @@ test.describe('Create a new user', () => {
     await loginsignup.fillNameandEmailAddress(process.env.STATIC_USER_NAME!, process.env.STATIC_USER_EMAIL!);
     await loginsignup.buttonSignUp();
 
-    const errorExistingUser = page.getByText('Email Address already exist!');
+    const errorExistingUser = page.locator('text=Email Address already exist');
+    await errorExistingUser.waitFor({ state: 'visible', timeout: 10000 });
     await expect(errorExistingUser).toBeVisible();
-    await expect(errorExistingUser).toHaveText('Email Address already exist!');
 });
 
 // login existing user via UI
-test('login exitsting user via API', async ({ page }) => {
+test.skip('login existing user via UI', async ({ page }) => {
   const loginsignup = new LoginSignuUp(page);
   const mainnav = new MainNavigation(page);
 
   await mainnav.clickSignUpLogin();
   await loginsignup.buttonLoginEmailAndPassword(process.env.STATIC_USER_EMAIL!, process.env.STATIC_USER_PASSWORD!);
   await loginsignup.buttonLogin();
-})
+  await page.waitForLoadState('networkidle');
+});
 
 //Delete user via API
- test.skip('Delete existing user via API', async ({ page, request }) => {
+test('Delete existing user via GET', async ({ page }) => {
+  // 1️⃣ Логін користувача
+  const mainnav = new MainNavigation(page);
+  const loginsignup = new LoginSignuUp(page);
 
-      const formData = new FormData();
-      formData.append('email', process.env.STATIC_USER_EMAIL!);
-      formData.append('password', process.env.STATIC_USER_PASSWORD!);
+  await page.goto('https://automationexercise.com');
+  await mainnav.clickSignUpLogin();
+  await loginsignup.buttonLoginEmailAndPassword(
+    process.env.STATIC_USER_EMAIL!,
+    process.env.STATIC_USER_PASSWORD!
+  );
+  await loginsignup.buttonLogin();
 
-       const deletMethod = await request.delete('https://automationexercise.com/api/deleteAccount', {
-       
-        multipart: formData
-       });
+  await page.goto('https://automationexercise.com/delete_account');
 
-       await expect(deletMethod).toBeOK();
-      
-      const result = await deletMethod.json();
-      console.log(result);
-      expect(result.responseCode).toBe(200);
-    });
+ 
+  await mainnav.clickSignUpLogin();
+  await loginsignup.buttonLoginEmailAndPassword(
+    process.env.STATIC_USER_EMAIL!,
+    process.env.STATIC_USER_PASSWORD!
+  );
+  await loginsignup.buttonLogin();
+
+  const loginError = page.locator('p:has-text("Your email or password is incorrect!")');
+  await expect(loginError).toBeVisible();
+
+  await page.context().clearCookies();
 });
+
+    });

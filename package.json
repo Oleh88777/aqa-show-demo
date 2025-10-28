@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "pageObjects-chrome": "npx playwright test registration-login.spec.ts --project=chromium"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
