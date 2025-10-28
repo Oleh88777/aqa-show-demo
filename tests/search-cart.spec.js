@@ -46,5 +46,6 @@ test.describe('Search and add product to the card', () => {
 
      const buttonViewCart = page.locator('[href="/view_cart"]')
 ;     await buttonViewCart.nth(1).click();
+       await page.close();
   });
 });

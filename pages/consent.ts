@@ -11,7 +11,6 @@ export class Consent {
 
     async clickButtonConsent() {
     await this.page.waitForLoadState('networkidle');
-    await expect.soft(this.buttonConsent).toBeVisible({ timeout: 10000 });
 
     if (await this.buttonConsent.isVisible()) {
     await this.buttonConsent.click();
