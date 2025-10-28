@@ -10,11 +10,10 @@ export class Consent {
     }
 
     async clickButtonConsent() {
-        
-      await expect.soft(this.buttonConsent).toBeVisible({ timeout: 10000 });
+    await this.page.waitForLoadState('networkidle');
+    await expect.soft(this.buttonConsent).toBeVisible({ timeout: 10000 });
 
-  // Якщо кнопка зʼявилась, клікаємо
-  if (await this.buttonConsent.isVisible()) {
+    if (await this.buttonConsent.isVisible()) {
     await this.buttonConsent.click();
   }
 
