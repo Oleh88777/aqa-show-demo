@@ -119,6 +119,7 @@ test('Delete existing user via GET', async ({ page }) => {
   await expect(loginError).toBeVisible();
 
   await page.context().clearCookies();
+  page.close();
 });
 
     });
