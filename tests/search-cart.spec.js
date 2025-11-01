@@ -3,7 +3,7 @@ import { HomePage } from '../pages/homePage';
 import { Consent } from '../pages/consent';
 import { MainNavigation } from '../pages/mainNavigationPage';
 import { LoginSignuUp } from '../pages/loginSignUpPage';
-import { faker, Faker } from '@faker-js/faker';
+import { faker, Faker } from '@faker-js/faker';                                
 import { Products } from '../pages/productPage';
 
 test.describe('Search and add product to the card', () => {

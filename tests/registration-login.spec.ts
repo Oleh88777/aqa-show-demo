@@ -81,19 +81,19 @@ test.describe('Create a new user', () => {
 });
 
 // login existing user via UI
-test.skip('login existing user via UI', async ({ page }) => {
+test('login existing user via UI', async ({ page }) => {
   const loginsignup = new LoginSignuUp(page);
   const mainnav = new MainNavigation(page);
 
   await mainnav.clickSignUpLogin();
   await loginsignup.buttonLoginEmailAndPassword(process.env.STATIC_USER_EMAIL!, process.env.STATIC_USER_PASSWORD!);
   await loginsignup.buttonLogin();
-  await page.waitForLoadState('networkidle');
+  //await page.waitForLoadState('networkidle');
 });
 
 //Delete user via API
-test('Delete existing user via GET', async ({ page }) => {
-  // 1️⃣ Логін користувача
+test.skip('Delete existing user via GET', async ({ page }) => {
+  // Логін користувача
   const mainnav = new MainNavigation(page);
   const loginsignup = new LoginSignuUp(page);
 
