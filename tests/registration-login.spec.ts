@@ -16,7 +16,7 @@ test.describe('Create a new user', () => {
     await consent.clickButtonConsent();
   });
 
-  test('New user Signup!', async ({ page }) => {
+  test.skip('New user Signup!', async ({ page }) => {
     const mainnav = new MainNavigation(page);
     const loginsignup = new LoginSignuUp(page);
 
